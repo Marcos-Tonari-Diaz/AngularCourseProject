@@ -9,6 +9,7 @@ import { Recipe} from './recipe.model'
 export class RecipeService {
   recipeChange = new Subject<Recipe[]>();
 
+  /*
   private recipes: Recipe[] = [
     new Recipe(
       'Pizza de Frigideira', 
@@ -32,6 +33,8 @@ export class RecipeService {
       new Ingredient('Tempero Verde', 1)
     ])
   ];
+  */
+  private recipes: Recipe[] = []
 
   constructor(private slService: ShoppingListService){
 
@@ -63,6 +66,11 @@ export class RecipeService {
   deleteRecipe(index: number){
     this.recipes.splice(index, 1);
     this.recipeChange.next(this.recipes.slice())
+  }
+
+  setRecipes(recipes: Recipe[]){
+    this.recipes = recipes;
+    this.recipeChange.next(this.recipes.slice());
   }
 
 }
