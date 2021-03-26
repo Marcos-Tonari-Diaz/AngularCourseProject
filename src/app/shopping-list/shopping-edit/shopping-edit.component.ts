@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { LogginService } from 'src/app/logging.service';
 import { Ingredient } from 'src/app/shared/ingredient.model';
 import { ShoppingListService } from '../shooping-list.service';
 
@@ -16,7 +17,7 @@ export class ShoppingEditComponent implements OnInit {
   editItemIndex: number;
   editItem: Ingredient;
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService, private loggingService: LogginService) { }
 
   ngOnInit(): void {
     this.subscription = this.slService.startedEditing.subscribe(
@@ -30,6 +31,7 @@ export class ShoppingEditComponent implements OnInit {
         })
       }
     );
+    this.loggingService.printLog("from shoplist")
   }
 
   onAddItem(form: NgForm){
